@@ -20,4 +20,6 @@ public class EventDAO {
     public List<EventPO> getAll() {
         return eventMapper.selectAll();
     }
+
+    public Boolean insert(EventPO eventPO) {return eventMapper.insert(eventPO) == 1;}
 }

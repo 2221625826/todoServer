@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.zyh.todo.model.vo.EventVO;
 import com.zyh.todo.service.EventService;
 import com.zyh.todo.util.http.AjaxResult;
 
@@ -25,4 +26,7 @@ public class TodoController extends BaseController{
     public AjaxResult getAll(){
         return initSuccessResult(eventService.getAll());
     }
+
+    @RequestMapping("addTask")
+    public AjaxResult addTask(EventVO eventVO) {return initSuccessResult();}
 }

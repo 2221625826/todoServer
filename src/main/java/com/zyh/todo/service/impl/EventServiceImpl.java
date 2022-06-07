@@ -23,4 +23,9 @@ public class EventServiceImpl implements EventService {
     public List<EventVO> getAll() {
         return eventDAO.getAll().stream().map(EventVO::of).collect(Collectors.toList());
     }
+
+    @Override
+    public Boolean addTask(EventVO eventVO) {
+        return true;
+    }
 }

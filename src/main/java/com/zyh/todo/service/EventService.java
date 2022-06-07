@@ -15,4 +15,11 @@ public interface EventService {
      * @return 事件列表
      */
     List<EventVO> getAll();
+
+    /**
+     * 添加任务
+     * @param eventVO 参数
+     * @return 是否成功
+     */
+    Boolean addTask(EventVO eventVO);
 }
