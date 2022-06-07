@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zyh.todo.dal.mapper.EventMapper">
-  <resultMap id="BaseResultMap" type="com.zyh.todo.model.po.Event">
+  <resultMap id="BaseResultMap" type="com.zyh.todo.model.po.EventPO">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="priority" jdbcType="TINYINT" property="priority" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="desc" jdbcType="VARCHAR" property="desc" />
-    <result column="tag" jdbcType="VARCHAR" property="tag" />
+    <result column="tags" jdbcType="VARCHAR" property="tags" />
     <result column="topic" jdbcType="VARCHAR" property="topic" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="create_time" jdbcType="BIGINT" property="createTime" />
@@ -17,22 +17,22 @@
     delete from event
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zyh.todo.model.po.Event">
+  <insert id="insert" parameterType="com.zyh.todo.model.po.EventPO">
     insert into event (id, priority, title, 
-      desc, tag, topic, status, 
+      desc, tags, topic, status,
       create_time, update_time, complete_time
       )
     values (#{id,jdbcType=INTEGER}, #{priority,jdbcType=TINYINT}, #{title,jdbcType=VARCHAR}, 
-      #{desc,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{topic,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{desc,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, #{topic,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT},
       #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{completeTime,jdbcType=BIGINT}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.zyh.todo.model.po.Event">
+  <update id="updateByPrimaryKey" parameterType="com.zyh.todo.model.po.EventPO">
     update event
     set priority = #{priority,jdbcType=TINYINT},
       title = #{title,jdbcType=VARCHAR},
       desc = #{desc,jdbcType=VARCHAR},
-      tag = #{tag,jdbcType=VARCHAR},
+      tags = #{tags,jdbcType=VARCHAR},
       topic = #{topic,jdbcType=VARCHAR},
       status = #{status,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=BIGINT},
@@ -41,12 +41,12 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, priority, title, desc, tag, topic, status, create_time, update_time, complete_time
+    select id, priority, title, desc, tags, topic, status, create_time, update_time, complete_time
     from event
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, priority, title, `desc`, `tag`, topic, status, create_time, update_time, complete_time
+    select id, priority, title, `desc`, `tags`, topic, status, create_time, update_time, complete_time
     from event
   </select>
 </mapper>

@@ -1,12 +1,13 @@
 package com.zyh.todo.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zyh.todo.dal.dao.EventDAO;
-import com.zyh.todo.model.po.Event;
+import com.zyh.todo.model.vo.EventVO;
 import com.zyh.todo.service.EventService;
 
 /**
@@ -19,7 +20,7 @@ public class EventServiceImpl implements EventService {
     EventDAO eventDAO;
 
     @Override
-    public List<Event> getAll() {
-        return eventDAO.getAll();
+    public List<EventVO> getAll() {
+        return eventDAO.getAll().stream().map(EventVO::of).collect(Collectors.toList());
     }
 }

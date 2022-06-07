@@ -3,7 +3,7 @@ CREATE TABLE `event` (
   `priority` tinyint(4) NOT NULL DEFAULT '0' COMMENT '优先级，0-A，1-B，2-C，3-D...',
   `title` varchar(200) DEFAULT NULL COMMENT '标题，用于展示',
   `desc` varchar(1000) DEFAULT NULL COMMENT '详细描述',
-  `tag` varchar(100) DEFAULT NULL COMMENT '标签，可有多个',
+  `tags` varchar(100) DEFAULT NULL COMMENT '标签，可有多个',
   `topic` varchar(100) DEFAULT NULL COMMENT '主题，唯一',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态，0-待办，1-进行中，2-已完成，3-已废弃',
   `create_time` bigint(20) NOT NULL DEFAULT '0' COMMENT '创建时间',

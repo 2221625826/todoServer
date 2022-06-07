@@ -1,16 +1,16 @@
 package com.zyh.todo.dal.mapper;
 
-import com.zyh.todo.model.po.Event;
+import com.zyh.todo.model.po.EventPO;
 import java.util.List;
 
 public interface EventMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Event record);
+    int insert(EventPO record);
 
-    Event selectByPrimaryKey(Integer id);
+    EventPO selectByPrimaryKey(Integer id);
 
-    List<Event> selectAll();
+    List<EventPO> selectAll();
 
-    int updateByPrimaryKey(Event record);
+    int updateByPrimaryKey(EventPO record);
 }

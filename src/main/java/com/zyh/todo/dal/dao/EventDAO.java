@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.zyh.todo.dal.mapper.EventMapper;
-import com.zyh.todo.model.po.Event;
+import com.zyh.todo.model.po.EventPO;
 
 /**
  * @author zhangyiheng03
@@ -17,7 +17,7 @@ public class EventDAO {
 
     @Autowired
     EventMapper eventMapper;
-    public List<Event> getAll() {
+    public List<EventPO> getAll() {
         return eventMapper.selectAll();
     }
 }

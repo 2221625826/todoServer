@@ -3,7 +3,7 @@ package com.zyh.todo.model.po;
 import lombok.Data;
 
 @Data
-public class Event {
+public class EventPO {
     /**
      * id
      */
@@ -27,7 +27,7 @@ public class Event {
     /**
      * 标签
      */
-    private String tag;
+    private String tags;
 
     /**
      * 主题
