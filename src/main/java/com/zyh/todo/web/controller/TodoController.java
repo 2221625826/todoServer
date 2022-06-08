@@ -2,10 +2,18 @@ package com.zyh.todo.web.controller;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
+import com.zyh.todo.model.enums.HttpCode;
 import com.zyh.todo.model.vo.EventVO;
 import com.zyh.todo.service.EventService;
 import com.zyh.todo.util.http.AjaxResult;
@@ -17,16 +25,24 @@ import com.zyh.todo.util.http.AjaxResult;
 @RestController
 @Slf4j
 @RequestMapping("/todo")
-public class TodoController extends BaseController{
+public class TodoController extends BaseController {
 
     @Autowired
     EventService eventService;
 
-    @RequestMapping("/getAll")
-    public AjaxResult getAll(){
+    @GetMapping("/getAll")
+    public AjaxResult getAll() {
         return initSuccessResult(eventService.getAll());
     }
 
-    @RequestMapping("addTask")
-    public AjaxResult addTask(EventVO eventVO) {return initSuccessResult();}
+    @ResponseBody
+    @PostMapping("addTask")
+    public AjaxResult addTask(EventVO eventVO) {
+
+        if (Objects.isNull(eventVO)) {
+            return initFailureResult("参数错误");
+        }
+        log.info("[option:addTask]: eventVO={}", eventVO);
+        return initSuccessResult(eventService.addTask(eventVO));
+    }
 }

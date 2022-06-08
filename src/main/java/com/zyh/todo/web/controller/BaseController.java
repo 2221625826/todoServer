@@ -31,7 +31,7 @@ public class BaseController {
         return new AjaxResult(code);
     }
 
-    protected AjaxResult initFailureResult(HttpCode code, String msg) {
+    protected AjaxResult initFailureResult(String msg) {
         return new AjaxResult(HttpCode.DEFAULT_ERROR, msg);
     }
 

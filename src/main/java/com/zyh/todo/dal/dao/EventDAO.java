@@ -21,5 +21,8 @@ public class EventDAO {
         return eventMapper.selectAll();
     }
 
-    public Boolean insert(EventPO eventPO) {return eventMapper.insert(eventPO) == 1;}
+    public Boolean insert(EventPO eventPO) {
+        eventPO.setUpdateTime(System.currentTimeMillis());
+        eventPO.setCreateTime(System.currentTimeMillis());
+        return eventMapper.insert(eventPO) == 1;}
 }

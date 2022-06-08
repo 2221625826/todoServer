@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zyh.todo.dal.dao.EventDAO;
+import com.zyh.todo.model.po.EventPO;
 import com.zyh.todo.model.vo.EventVO;
 import com.zyh.todo.service.EventService;
 
@@ -26,6 +27,6 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Boolean addTask(EventVO eventVO) {
-        return true;
+        return eventDAO.insert(EventPO.of(eventVO));
     }
 }

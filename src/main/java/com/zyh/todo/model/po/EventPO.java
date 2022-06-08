@@ -2,6 +2,12 @@ package com.zyh.todo.model.po;
 
 import lombok.Data;
 
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
+
+import com.zyh.todo.model.vo.EventVO;
+
 @Data
 public class EventPO {
     /**
@@ -53,4 +59,11 @@ public class EventPO {
      * 完成时间
      */
     private Long completeTime;
+
+    public static EventPO of(EventVO eventVO) {
+        EventPO res = new EventPO();
+        BeanUtils.copyProperties(eventVO, res);
+        res.setTags(eventVO.getTags().toString());
+        return res;
+    }
 }
