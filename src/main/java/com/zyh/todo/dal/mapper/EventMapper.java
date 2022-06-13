@@ -13,4 +13,10 @@ public interface EventMapper {
     List<EventPO> selectAll();
 
     int updateByPrimaryKey(EventPO record);
+
+    List<EventPO> selectTodo();
+
+    List<EventPO> selectDone();
+
+    int updateStatusById(int id, int status);
 }

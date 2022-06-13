@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 
 import com.zyh.todo.model.po.EventPO;
+import com.zyh.todo.util.DateTimeUtil;
 
 @Data
 public class EventVO {
@@ -18,7 +19,7 @@ public class EventVO {
     /**
      * 优先级
      */
-    private Byte priority;
+    private Integer priority;
 
     /**
      * 标题
@@ -43,28 +44,19 @@ public class EventVO {
     /**
      * 状态
      */
-    private Byte status;
-
-    /**
-     * 创建时间
-     */
-    private Long createTime;
-
-    /**
-     * 更新时间
-     */
-    private Long updateTime;
+    private Integer status;
 
     /**
      * 完成时间
      */
-    private Long completeTime;
+    private String completeTime;
 
     public static EventVO of(EventPO eventPO) {
         EventVO res = new EventVO();
         BeanUtils.copyProperties(eventPO, res);
         int start = 1, end = eventPO.getTags().length() - 1;
         res.setTags(List.of(eventPO.getTags().substring(start, end).split(",")));
+        res.setCompleteTime(DateTimeUtil.parseLongToString(eventPO.getCompleteTime(), DateTimeUtil.DATE_TIME_FORMAT));
         return res;
     }
 }

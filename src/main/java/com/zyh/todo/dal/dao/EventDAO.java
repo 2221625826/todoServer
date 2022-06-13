@@ -17,12 +17,31 @@ public class EventDAO {
 
     @Autowired
     EventMapper eventMapper;
+
     public List<EventPO> getAll() {
         return eventMapper.selectAll();
     }
 
-    public Boolean insert(EventPO eventPO) {
+    public boolean insert(EventPO eventPO) {
         eventPO.setUpdateTime(System.currentTimeMillis());
         eventPO.setCreateTime(System.currentTimeMillis());
-        return eventMapper.insert(eventPO) == 1;}
+        return eventMapper.insert(eventPO) == 1;
+    }
+
+    public List<EventPO> getTodo() {
+        return eventMapper.selectTodo();
+    }
+
+    public List<EventPO> getDone() {
+        return eventMapper.selectTodo();
+    }
+
+    public boolean update(EventPO eventPO) {
+        eventPO.setUpdateTime(System.currentTimeMillis());
+        return eventMapper.updateByPrimaryKey(eventPO) == 1;
+    }
+
+    public boolean updateStatusById(int id, int status) {
+        return eventMapper.updateStatusById(id, status) == 1;
+    }
 }

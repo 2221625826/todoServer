@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 
 import com.zyh.todo.model.vo.EventVO;
+import com.zyh.todo.util.DateTimeUtil;
 
 @Data
 public class EventPO {
@@ -64,6 +65,7 @@ public class EventPO {
         EventPO res = new EventPO();
         BeanUtils.copyProperties(eventVO, res);
         res.setTags(eventVO.getTags().toString());
+        res.setCompleteTime(DateTimeUtil.parseStringToLong(eventVO.getCompleteTime(), DateTimeUtil.DATE_TIME_FORMAT));
         return res;
     }
 }
