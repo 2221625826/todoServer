@@ -72,7 +72,7 @@ public class TodoController extends BaseController {
     }
 
     @GetMapping("/deprecatedTask")
-    public AjaxResult deprecatedTask() {
-        return initSuccessResult();
+    public AjaxResult deprecatedTask(@RequestParam Integer id) {
+        return initSuccessResult(eventService.deprecatedTask(id));
     }
 }
