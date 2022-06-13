@@ -2,8 +2,9 @@ package com.zyh.todo.model.po;
 
 import lombok.Data;
 
-import java.util.List;
+import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 
 import com.zyh.todo.model.vo.EventVO;
@@ -19,7 +20,7 @@ public class EventPO {
     /**
      * 优先级
      */
-    private Byte priority;
+    private Integer priority;
 
     /**
      * 标题
@@ -44,7 +45,7 @@ public class EventPO {
     /**
      * 状态
      */
-    private Byte status;
+    private Integer status;
 
     /**
      * 创建时间
@@ -64,8 +65,12 @@ public class EventPO {
     public static EventPO of(EventVO eventVO) {
         EventPO res = new EventPO();
         BeanUtils.copyProperties(eventVO, res);
-        res.setTags(eventVO.getTags().toString());
-        res.setCompleteTime(DateTimeUtil.parseStringToLong(eventVO.getCompleteTime(), DateTimeUtil.DATE_TIME_FORMAT));
+        if (Objects.nonNull(eventVO.getTags())) {
+            res.setTags(eventVO.getTags().toString());
+        }
+        if (!StringUtils.isBlank(eventVO.getCompleteTime())) {
+            res.setCompleteTime(DateTimeUtil.parseStringToLong(eventVO.getCompleteTime(), DateTimeUtil.DATE_TIME_FORMAT));
+        }
         return res;
     }
 }

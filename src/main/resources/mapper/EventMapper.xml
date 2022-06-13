@@ -33,7 +33,10 @@
             <if test="topic != null">
                 topic,
             </if>
-            status, create_time, update_time, complete_time,
+            status, create_time, update_time,
+            <if test="topic != null">
+                complete_time,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             #{priority,jdbcType=TINYINT},
@@ -52,7 +55,10 @@
             <if test="status != null">
                 #{status,jdbcType=TINYINT},
             </if>
-            #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, #{completeTime,jdbcType=BIGINT}
+            #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT},
+            <if test="status != null">
+                #{completeTime,jdbcType=BIGINT},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKey" parameterType="com.zyh.todo.model.po.EventPO">
@@ -85,10 +91,10 @@
     </select>
     <select id="selectTodo" resultType="com.zyh.todo.model.po.EventPO">
         select <include refid="cols"/> from <include refid="table"/>
-        <where>status == 0 OR status == 1</where>
+        <where>status = 0 OR status = 1</where>
     </select>
     <select id="selectDone" resultType="com.zyh.todo.model.po.EventPO">
         select <include refid="cols"/> from <include refid="table"/>
-        <where>status == 2</where>
+        <where>status = 2</where>
     </select>
 </mapper>

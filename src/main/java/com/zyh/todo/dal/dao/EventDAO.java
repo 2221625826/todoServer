@@ -33,7 +33,7 @@ public class EventDAO {
     }
 
     public List<EventPO> getDone() {
-        return eventMapper.selectTodo();
+        return eventMapper.selectDone();
     }
 
     public boolean update(EventPO eventPO) {

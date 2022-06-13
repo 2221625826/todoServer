@@ -8,6 +8,6 @@ CREATE TABLE `event` (
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态，0-待办，1-进行中，2-已完成，3-已废弃',
   `create_time` bigint(20) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` bigint(20) NOT NULL DEFAULT '0' COMMENT '修改时间',
-  `complete_time` bigint(20) NOT NULL DEFAULT '0' COMMENT '完成时间',
+  `complete_time` bigint(20) DEFAULT '0' COMMENT '完成时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

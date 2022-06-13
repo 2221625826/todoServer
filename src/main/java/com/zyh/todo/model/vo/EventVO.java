@@ -3,6 +3,7 @@ package com.zyh.todo.model.vo;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.BeanUtils;
 
@@ -54,9 +55,13 @@ public class EventVO {
     public static EventVO of(EventPO eventPO) {
         EventVO res = new EventVO();
         BeanUtils.copyProperties(eventPO, res);
-        int start = 1, end = eventPO.getTags().length() - 1;
-        res.setTags(List.of(eventPO.getTags().substring(start, end).split(",")));
-        res.setCompleteTime(DateTimeUtil.parseLongToString(eventPO.getCompleteTime(), DateTimeUtil.DATE_TIME_FORMAT));
+        if (Objects.nonNull(eventPO.getTags())) {
+            int start = 1, end = eventPO.getTags().length() - 1;
+            res.setTags(List.of(eventPO.getTags().substring(start, end).split(",")));
+        }
+        if (Objects.nonNull(eventPO.getCompleteTime()) && eventPO.getCompleteTime() != -1) {
+            res.setCompleteTime(DateTimeUtil.parseLongToString(eventPO.getCompleteTime(), DateTimeUtil.DATE_TIME_FORMAT));
+        }
         return res;
     }
 }
