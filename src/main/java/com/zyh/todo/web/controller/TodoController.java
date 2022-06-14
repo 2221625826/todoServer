@@ -74,7 +74,7 @@ public class TodoController extends BaseController {
      * @param eventVO 新内容
      * @return 是否成功
      */
-    @GetMapping("/editTask")
+    @PostMapping("/editTask")
     public AjaxResult editTask(@RequestBody EventVO eventVO) {
         if (Objects.isNull(eventVO)) {
             return initFailureResult("参数错误");

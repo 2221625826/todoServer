@@ -52,7 +52,7 @@ public class EventServiceImpl implements EventService {
         if (!TaskStatus.getMap().containsKey(eventPO.getStatus())) {
             throw new ServiceException("非法状态！");
         }
-        if (eventPO.getCompleteTime() < System.currentTimeMillis()) {
+        if (Objects.nonNull(eventPO.getCompleteTime()) && eventPO.getCompleteTime() < System.currentTimeMillis()) {
             throw new ServiceException("结束时间不可用！");
         }
         return eventDAO.update(eventPO);

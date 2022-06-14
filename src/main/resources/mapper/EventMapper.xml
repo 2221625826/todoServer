@@ -62,22 +62,35 @@
         </trim>
     </insert>
     <update id="updateByPrimaryKey" parameterType="com.zyh.todo.model.po.EventPO">
-        update event
-        set priority = #{priority,jdbcType=TINYINT},
-        title = #{title,jdbcType=VARCHAR},
-        desc = #{desc,jdbcType=VARCHAR},
-        tags = #{tags,jdbcType=VARCHAR},
-        topic = #{topic,jdbcType=VARCHAR},
-        status = #{status,jdbcType=TINYINT},
-        create_time = #{createTime,jdbcType=BIGINT},
-        update_time = #{updateTime,jdbcType=BIGINT},
-        complete_time = #{completeTime,jdbcType=BIGINT}
-        where id = #{id,jdbcType=INTEGER}
+        update <include refid="table"/>
+        <trim prefix="set" suffixOverrides=",">
+            priority = #{priority,jdbcType=TINYINT},
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="desc != null">
+                `desc` = #{desc,jdbcType=VARCHAR},
+            </if>
+            <if test="tags != null">
+                tags = #{tags,jdbcType=VARCHAR},
+            </if>
+            <if test="topic != null">
+                topic = #{topic,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="completeTime != null">
+                complete_time = #{completeTime,jdbcType=BIGINT},
+            </if>
+        </trim>
+        <where>id = #{id,jdbcType=INTEGER}</where>
     </update>
     <update id="updateStatusById">
-        update <include refid="table"/>
-        <set> status = #{status,jdbcType=TINYINT} </set>
-        <where> id = #{id,jdbcType=INTEGER} </where>
+        update
+        <include refid="table"/>
+        <set>status = #{status,jdbcType=TINYINT}</set>
+        <where>id = #{id,jdbcType=INTEGER}</where>
     </update>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select id, priority, title, desc, tags, topic, status, create_time, update_time, complete_time
@@ -90,11 +103,17 @@
         <where>status != 3</where>
     </select>
     <select id="selectTodo" resultType="com.zyh.todo.model.po.EventPO">
-        select <include refid="cols"/> from <include refid="table"/>
+        select
+        <include refid="cols"/>
+        from
+        <include refid="table"/>
         <where>status = 0 OR status = 1</where>
     </select>
     <select id="selectDone" resultType="com.zyh.todo.model.po.EventPO">
-        select <include refid="cols"/> from <include refid="table"/>
+        select
+        <include refid="cols"/>
+        from
+        <include refid="table"/>
         <where>status = 2</where>
     </select>
 </mapper>
