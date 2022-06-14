@@ -1,6 +1,7 @@
 package com.zyh.todo.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.zyh.todo.model.enums.TaskStatus;
 import com.zyh.todo.model.po.EventPO;
 import com.zyh.todo.model.vo.EventVO;
 import com.zyh.todo.service.EventService;
+import com.zyh.todo.util.exception.ServiceException;
 
 /**
  * @author zhangyiheng03
@@ -22,14 +24,13 @@ public class EventServiceImpl implements EventService {
     EventDAO eventDAO;
 
     @Override
-    public List<EventVO> getAll() {
-        return eventDAO.getAll().stream().map(EventVO::of).collect(Collectors.toList());
-    }
-
-    @Override
     public boolean addTask(EventVO eventVO) {
+        EventPO eventPO = EventPO.of(eventVO);
+        if (Objects.nonNull(eventPO.getCompleteTime()) && eventPO.getCompleteTime() < System.currentTimeMillis()) {
+            throw new ServiceException("结束时间不可用！");
+        }
         eventVO.setStatus(TaskStatus.TODO.getCode());
-        return eventDAO.insert(EventPO.of(eventVO));
+        return eventDAO.insert(eventPO);
     }
 
     @Override
@@ -44,7 +45,17 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public boolean editTask(EventVO eventVO) {
-        return eventDAO.update(EventPO.of(eventVO));
+        EventPO eventPO = EventPO.of(eventVO);
+        if (eventPO.getId() < 0) {
+            throw new ServiceException("非法ID！");
+        }
+        if (!TaskStatus.getMap().containsKey(eventPO.getStatus())) {
+            throw new ServiceException("非法状态！");
+        }
+        if (eventPO.getCompleteTime() < System.currentTimeMillis()) {
+            throw new ServiceException("结束时间不可用！");
+        }
+        return eventDAO.update(eventPO);
     }
 
     @Override

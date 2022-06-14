@@ -2,6 +2,11 @@ package com.zyh.todo.model.enums;
 
 import lombok.Getter;
 
+import java.util.Map;
+
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
+
 /**
  * @author zhangyiheng03
  * @since 2022/6/13 11:02
@@ -19,5 +24,13 @@ public enum TaskStatus{
     TaskStatus(int code, String desc) {
         this.code = code;
         this.desc = desc;
+    }
+
+    public static Map<Integer, String> getMap() {
+        Map<Integer, String> res = Maps.newHashMap();
+        for (TaskStatus ts : TaskStatus.values()) {
+            res.put(ts.getCode(), ts.getDesc());
+        }
+        return res;
     }
 }

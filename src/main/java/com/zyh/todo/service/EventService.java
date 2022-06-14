@@ -10,11 +10,6 @@ import com.zyh.todo.model.vo.EventVO;
  */
 
 public interface EventService {
-    /**
-     * 获取所有事件
-     * @return 事件列表
-     */
-    List<EventVO> getAll();
 
     /**
      * 添加任务

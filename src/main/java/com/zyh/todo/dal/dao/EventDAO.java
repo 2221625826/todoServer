@@ -18,10 +18,6 @@ public class EventDAO {
     @Autowired
     EventMapper eventMapper;
 
-    public List<EventPO> getAll() {
-        return eventMapper.selectAll();
-    }
-
     public boolean insert(EventPO eventPO) {
         eventPO.setUpdateTime(System.currentTimeMillis());
         eventPO.setCreateTime(System.currentTimeMillis());

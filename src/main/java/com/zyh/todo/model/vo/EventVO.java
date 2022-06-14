@@ -5,6 +5,7 @@ import lombok.Data;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 
 import com.zyh.todo.model.po.EventPO;
@@ -55,7 +56,7 @@ public class EventVO {
     public static EventVO of(EventPO eventPO) {
         EventVO res = new EventVO();
         BeanUtils.copyProperties(eventPO, res);
-        if (Objects.nonNull(eventPO.getTags())) {
+        if (!StringUtils.isBlank(eventPO.getTags())) {
             int start = 1, end = eventPO.getTags().length() - 1;
             res.setTags(List.of(eventPO.getTags().substring(start, end).split(",")));
         }

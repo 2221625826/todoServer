@@ -65,7 +65,7 @@ public class EventPO {
     public static EventPO of(EventVO eventVO) {
         EventPO res = new EventPO();
         BeanUtils.copyProperties(eventVO, res);
-        if (Objects.nonNull(eventVO.getTags())) {
+        if (Objects.nonNull(eventVO.getTags()) && !eventVO.getTags().isEmpty()) {
             res.setTags(eventVO.getTags().toString());
         }
         if (!StringUtils.isBlank(eventVO.getCompleteTime())) {
