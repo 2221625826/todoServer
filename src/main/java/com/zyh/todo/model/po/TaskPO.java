@@ -59,6 +59,8 @@ public class TaskPO {
         BeanUtils.copyProperties(taskVO, res);
         if (!StringUtils.isBlank(taskVO.getCompleteTime())) {
             res.setCompleteTime(DateTimeUtil.parseStringToLong(taskVO.getCompleteTime(), DateTimeUtil.DATE_TIME_FORMAT));
+        } else {
+            res.setCompleteTime(-1L);
         }
         return res;
     }

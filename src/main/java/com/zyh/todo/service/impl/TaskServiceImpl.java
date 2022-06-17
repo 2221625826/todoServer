@@ -27,9 +27,6 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public boolean addTask(TaskVO taskVO) {
         TaskPO taskPO = TaskPO.of(taskVO);
-        if (Objects.nonNull(taskVO.getCompleteTime()) && taskPO.getCompleteTime() < System.currentTimeMillis()) {
-            throw new ServiceException("结束时间不可用！");
-        }
         taskPO.setStatus(TaskStatus.TODO.getCode());
         return taskDAO.insert(taskPO);
     }
@@ -62,9 +59,6 @@ public class TaskServiceImpl implements TaskService {
         }
         if (!TaskStatus.getMap().containsKey(taskPO.getStatus())) {
             throw new ServiceException("非法状态！");
-        }
-        if (Objects.nonNull(taskPO.getCompleteTime()) && taskPO.getCompleteTime() < System.currentTimeMillis()) {
-            throw new ServiceException("结束时间不可用！");
         }
         return taskDAO.update(taskPO);
     }
