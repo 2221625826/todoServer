@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zyh.todo.model.vo.EventVO;
-import com.zyh.todo.service.EventService;
+import com.zyh.todo.model.vo.TaskVO;
+import com.zyh.todo.service.TaskService;
 import com.zyh.todo.util.exception.ServiceException;
 import com.zyh.todo.util.http.AjaxResult;
 
@@ -28,21 +28,21 @@ import com.zyh.todo.util.http.AjaxResult;
 public class TodoController extends BaseController {
 
     @Autowired
-    EventService eventService;
+    TaskService taskService;
 
     /**
      * 添加任务
-     * @param eventVO 任务
+     * @param taskVO 任务
      * @return 是否成功
      */
     @PostMapping("/addTask")
-    public AjaxResult addTask(@RequestBody EventVO eventVO) {
-        if (Objects.isNull(eventVO)) {
+    public AjaxResult addTask(@RequestBody TaskVO taskVO) {
+        if (Objects.isNull(taskVO)) {
             return initFailureResult("参数错误");
         }
-        log.info("[option:addTask]: eventVO={}", eventVO);
+        log.info("[option:addTask]: taskVO={}", taskVO);
         try {
-            return initSuccessResult(eventService.addTask(eventVO));
+            return initSuccessResult(taskService.addTask(taskVO));
         } catch (ServiceException e) {
             return initFailureResult(e.getMessage());
         }
@@ -56,7 +56,7 @@ public class TodoController extends BaseController {
     @ResponseBody
     @GetMapping("/getTodo")
     public AjaxResult getTodo() {
-        return initSuccessResult(eventService.getTodo());
+        return initSuccessResult(taskService.getTodo());
     }
 
     /**
@@ -66,22 +66,22 @@ public class TodoController extends BaseController {
     @ResponseBody
     @GetMapping("/getDone")
     public AjaxResult getDone() {
-        return initSuccessResult(eventService.getDone());
+        return initSuccessResult(taskService.getDone());
     }
 
     /**
      * 编辑指定任务
-     * @param eventVO 新内容
+     * @param taskVO 新内容
      * @return 是否成功
      */
     @PostMapping("/editTask")
-    public AjaxResult editTask(@RequestBody EventVO eventVO) {
-        if (Objects.isNull(eventVO)) {
+    public AjaxResult editTask(@RequestBody TaskVO taskVO) {
+        if (Objects.isNull(taskVO)) {
             return initFailureResult("参数错误");
         }
-        log.info("[option:editTask]: eventVO={}", eventVO);
+        log.info("[option:editTask]: taskVO={}", taskVO);
         try {
-            return initSuccessResult(eventService.editTask(eventVO));
+            return initSuccessResult(taskService.editTask(taskVO));
         } catch (ServiceException e) {
             return initFailureResult(e.getMessage());
         }
@@ -98,7 +98,7 @@ public class TodoController extends BaseController {
             return initFailureResult("参数错误");
         }
         log.info("[option:doTask]: id={}", id);
-        return initSuccessResult(eventService.doTask(id));
+        return initSuccessResult(taskService.doTask(id));
     }
 
     /**
@@ -112,7 +112,7 @@ public class TodoController extends BaseController {
             return initFailureResult("参数错误");
         }
         log.info("[option:finishTask]: id={}", id);
-        return initSuccessResult(eventService.finishTask(id));
+        return initSuccessResult(taskService.finishTask(id));
     }
 
     /**
@@ -126,7 +126,7 @@ public class TodoController extends BaseController {
             return initFailureResult("参数错误");
         }
         log.info("[option:deprecatedTask]: id={}", id);
-        return initSuccessResult(eventService.deprecatedTask(id));
+        return initSuccessResult(taskService.deprecatedTask(id));
     }
 
     /**

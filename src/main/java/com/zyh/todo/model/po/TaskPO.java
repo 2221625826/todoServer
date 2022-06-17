@@ -2,16 +2,13 @@ package com.zyh.todo.model.po;
 
 import lombok.Data;
 
-import java.util.Objects;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 
-import com.zyh.todo.model.vo.EventVO;
+import com.zyh.todo.model.vo.TaskVO;
 import com.zyh.todo.util.DateTimeUtil;
-
 @Data
-public class EventPO {
+public class TaskPO {
     /**
      * id
      */
@@ -33,14 +30,9 @@ public class EventPO {
     private String desc;
 
     /**
-     * 标签
+     * 主题id
      */
-    private String tags;
-
-    /**
-     * 主题
-     */
-    private String topic;
+    private String topicId;
 
     /**
      * 状态
@@ -62,15 +54,13 @@ public class EventPO {
      */
     private Long completeTime;
 
-    public static EventPO of(EventVO eventVO) {
-        EventPO res = new EventPO();
-        BeanUtils.copyProperties(eventVO, res);
-        if (Objects.nonNull(eventVO.getTags()) && !eventVO.getTags().isEmpty()) {
-            res.setTags(eventVO.getTags().toString());
-        }
-        if (!StringUtils.isBlank(eventVO.getCompleteTime())) {
-            res.setCompleteTime(DateTimeUtil.parseStringToLong(eventVO.getCompleteTime(), DateTimeUtil.DATE_TIME_FORMAT));
+    public static TaskPO of(TaskVO taskVO) {
+        TaskPO res = new TaskPO();
+        BeanUtils.copyProperties(taskVO, res);
+        if (!StringUtils.isBlank(taskVO.getCompleteTime())) {
+            res.setCompleteTime(DateTimeUtil.parseStringToLong(taskVO.getCompleteTime(), DateTimeUtil.DATE_TIME_FORMAT));
         }
         return res;
     }
+
 }
