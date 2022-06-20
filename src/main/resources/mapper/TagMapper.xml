@@ -5,26 +5,35 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
+  <sql id="table">tag</sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tag
+    delete from
+    <include refid="table"/>
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zyh.todo.model.po.TagPO">
-    insert into tag (id, name)
+    insert into
+    <include refid="table"/>
+    (id, name)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.zyh.todo.model.po.TagPO">
-    update tag
+    update
+    <include refid="table"/>
     set name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, name
-    from tag
-    where id = #{id,jdbcType=INTEGER}
-  </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, name
-    from tag
+    from
+    <include refid="table"/>
   </select>
+    <select id="selectById" resultType="com.zyh.todo.model.po.TagPO">
+      select id, name
+      from
+      <include refid="table"/>
+      <where>
+        id = #{id,jdbcType=INTEGER}
+      </where>
+    </select>
 </mapper>

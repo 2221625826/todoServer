@@ -13,8 +13,8 @@
     <result column="complete_time" jdbcType="BIGINT" property="completeTime" />
   </resultMap>
   <sql id="table">task</sql>
-  <sql id="cols">priority, title, `desc`, topicId, status, create_time, update_time, complete_time</sql>
-  <insert id="insert" parameterType="com.zyh.todo.model.po.TaskPO">
+  <sql id="cols">id, priority, title, `desc`, topicId, status, create_time, update_time, complete_time</sql>
+  <insert id="insert" parameterType="com.zyh.todo.model.po.TaskPO" useGeneratedKeys="true" keyProperty="id">
     insert into
     <include refid="table"/>
     (<include refid="cols"/>)

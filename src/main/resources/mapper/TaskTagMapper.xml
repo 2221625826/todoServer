@@ -3,32 +3,25 @@
 <mapper namespace="com.zyh.todo.dal.mapper.TaskTagMapper">
   <resultMap id="BaseResultMap" type="com.zyh.todo.model.po.TaskTagPO">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="tagId" jdbcType="INTEGER" property="tagid" />
-    <result column="taskId" jdbcType="INTEGER" property="taskid" />
+    <result column="tagId" jdbcType="INTEGER" property="tagId" />
+    <result column="taskId" jdbcType="INTEGER" property="taskId" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from task_tag
-    where id = #{id,jdbcType=INTEGER}
+  <sql id="table">task_tag</sql>
+  <delete id="deleteByTaskId">
+    delete from
+    <include refid="table"/>
+    <where>taskId = #{taskId,jdbcType=INTEGER}</where>
   </delete>
   <insert id="insert" parameterType="com.zyh.todo.model.po.TaskTagPO">
-    insert into task_tag (id, tagId, taskId
-      )
-    values (#{id,jdbcType=INTEGER}, #{tagid,jdbcType=INTEGER}, #{taskid,jdbcType=INTEGER}
-      )
+    insert into
+    <include refid="table"/>
+    (id, tagId, taskId )
+    values (#{id,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER} )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.zyh.todo.model.po.TaskTagPO">
-    update task_tag
-    set tagId = #{tagid,jdbcType=INTEGER},
-      taskId = #{taskid,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByTaskId" resultMap="BaseResultMap">
     select id, tagId, taskId
-    from task_tag
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, tagId, taskId
-    from task_tag
+    from
+    <include refid="table"/>
+    where taskId = #{taskId,jdbcType=INTEGER}
   </select>
 </mapper>

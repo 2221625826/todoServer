@@ -1,16 +1,18 @@
 package com.zyh.todo.service.impl;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
+import com.zyh.todo.dal.dao.TagDAO;
 import com.zyh.todo.dal.dao.TaskDAO;
+import com.zyh.todo.dal.dao.TaskTagDAO;
 import com.zyh.todo.model.enums.TaskStatus;
+import com.zyh.todo.model.po.TagPO;
 import com.zyh.todo.model.po.TaskPO;
+import com.zyh.todo.model.po.TaskTagPO;
 import com.zyh.todo.model.vo.TaskVO;
 import com.zyh.todo.service.TaskService;
 import com.zyh.todo.util.exception.ServiceException;
@@ -24,11 +26,24 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     TaskDAO taskDAO;
 
+    @Autowired
+    TaskTagDAO taskTagDAO;
+
+    @Autowired
+    TagDAO tagDAO;
+
     @Override
     public boolean addTask(TaskVO taskVO) {
         TaskPO taskPO = TaskPO.of(taskVO);
         taskPO.setStatus(TaskStatus.TODO.getCode());
-        return taskDAO.insert(taskPO);
+        boolean res = taskDAO.insert(taskPO);
+        for (TagPO tagPO : taskVO.getTags()) {
+            TaskTagPO taskTagPO = new TaskTagPO();
+            taskTagPO.setTagId(tagPO.getId());
+            taskTagPO.setTaskId(taskPO.getId());
+            res &= taskTagDAO.insert(taskTagPO);
+        }
+        return res;
     }
 
     @Override
@@ -36,6 +51,11 @@ public class TaskServiceImpl implements TaskService {
         List<TaskVO> todoList = Lists.newArrayList();
         for (TaskPO taskPO : taskDAO.getTodo()) {
             TaskVO taskVO = TaskVO.of(taskPO);
+            List<TagPO> tagPOList = Lists.newArrayList();
+            for (TaskTagPO taskTagPO : taskTagDAO.selectByTaskId(taskPO.getId())) {
+                tagPOList.add(tagDAO.getById(taskTagPO.getTagId()));
+            }
+            taskVO.setTags(tagPOList);
             todoList.add(taskVO);
         }
         return todoList;
@@ -46,6 +66,11 @@ public class TaskServiceImpl implements TaskService {
         List<TaskVO> doneList = Lists.newArrayList();
         for (TaskPO taskPO : taskDAO.getDone()) {
             TaskVO taskVO = TaskVO.of(taskPO);
+            List<TagPO> tagPOList = Lists.newArrayList();
+            for (TaskTagPO taskTagPO : taskTagDAO.selectByTaskId(taskPO.getId())) {
+                tagPOList.add(tagDAO.getById(taskTagPO.getTagId()));
+            }
+            taskVO.setTags(tagPOList);
             doneList.add(taskVO);
         }
         return doneList;
@@ -60,7 +85,15 @@ public class TaskServiceImpl implements TaskService {
         if (!TaskStatus.getMap().containsKey(taskPO.getStatus())) {
             throw new ServiceException("非法状态！");
         }
-        return taskDAO.update(taskPO);
+        boolean res = taskDAO.update(taskPO);
+        taskTagDAO.delete(taskVO.getId());
+        for (TagPO tagPO : taskVO.getTags()) {
+            TaskTagPO taskTagPO = new TaskTagPO();
+            taskTagPO.setTagId(tagPO.getId());
+            taskTagPO.setTaskId(taskPO.getId());
+            res &= taskTagDAO.insert(taskTagPO);
+        }
+        return res;
     }
 
     @Override

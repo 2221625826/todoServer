@@ -1,10 +1,22 @@
 package com.zyh.todo.model.po;
 
+import lombok.Data;
+
+@Data
 public class TaskTagPO {
+    /**
+     * 主键id
+     */
     private Integer id;
 
-    private Integer tagid;
+    /**
+     * tag表id
+     */
+    private Integer tagId;
 
-    private Integer taskid;
+    /**
+     * 任务表id
+     */
+    private Integer taskId;
 
 }

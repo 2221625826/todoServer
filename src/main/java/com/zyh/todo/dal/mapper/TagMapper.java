@@ -8,9 +8,9 @@ public interface TagMapper {
 
     int insert(TagPO record);
 
-    TagPO selectByPrimaryKey(Integer id);
-
     List<TagPO> selectAll();
 
     int updateByPrimaryKey(TagPO record);
+
+    TagPO selectById(Integer id);
 }
