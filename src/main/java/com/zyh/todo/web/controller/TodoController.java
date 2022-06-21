@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zyh.todo.model.vo.TaskVO;
+import com.zyh.todo.service.TagService;
 import com.zyh.todo.service.TaskService;
 import com.zyh.todo.util.exception.ServiceException;
 import com.zyh.todo.util.http.AjaxResult;
@@ -29,6 +30,9 @@ public class TodoController extends BaseController {
 
     @Autowired
     TaskService taskService;
+
+    @Autowired
+    TagService tagService;
 
     /**
      * 添加任务
@@ -136,7 +140,7 @@ public class TodoController extends BaseController {
     @ResponseBody
     @GetMapping("/getTags")
     public AjaxResult getTags() {
-        return initSuccessResult();
+        return initSuccessResult(tagService.getAll());
     }
 
     /**
