@@ -17,4 +17,11 @@ public interface TagService {
      * @return 标签列表
      */
     List<TagPO> getAll();
+
+    /**
+     * 插入标签
+     * @param name 标签名
+     * @return 是否成功
+     */
+    boolean addTag(String name);
 }

@@ -14,8 +14,8 @@
   <insert id="insert" parameterType="com.zyh.todo.model.po.TagPO">
     insert into
     <include refid="table"/>
-    (id, name)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
+    (name)
+    values (#{name,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.zyh.todo.model.po.TagPO">
     update

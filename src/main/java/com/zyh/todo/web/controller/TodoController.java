@@ -144,6 +144,16 @@ public class TodoController extends BaseController {
     }
 
     /**
+     * 新建tag
+     * @param name tag名称
+     * @return 是否成功
+     */
+    @GetMapping("/addTag")
+    public AjaxResult addTag(@RequestParam String name) {
+        return initSuccessResult(tagService.addTag(name));
+    }
+
+    /**
      * 获取所有topic
      * @return topic列表
      */

@@ -21,4 +21,11 @@ public class TagServiceImpl implements TagService {
     public List<TagPO> getAll() {
         return tagDAO.getAll();
     }
+
+    @Override
+    public boolean addTag(String name) {
+        TagPO tagPO = new TagPO();
+        tagPO.setName(name);
+        return tagDAO.insert(tagPO);
+    }
 }
