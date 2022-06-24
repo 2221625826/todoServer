@@ -6,7 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import com.zyh.todo.util.CookieUtil;
+import com.zyh.todo.util.JWTUtil;
+import com.zyh.todo.web.UserContext;
 
 /**
  * @author zhangyiheng03
@@ -15,10 +20,18 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Slf4j
 public class AuthenticationInterceptor implements HandlerInterceptor {
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request,@NonNull HttpServletResponse response,@NonNull Object handler) {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         try {
-            String sessionKey = request.getHeader("X-SessionKey");
-            log.info("sessionKey:{}", sessionKey);
+            String token = CookieUtil.getCookie(CookieUtil.LOGIN_TOKEN, request);
+            if (StringUtils.isBlank(token)) {
+                return false;
+            }
+            if (JWTUtil.checkToken(token)) {
+                String userId = JWTUtil.getUserIdFromToken(token);
+                UserContext.setUser(userId);
+            } else {
+                return false;
+            }
         } catch (Exception e) {
             log.error("[op:preHandle] catch-exception,", e);
         }
