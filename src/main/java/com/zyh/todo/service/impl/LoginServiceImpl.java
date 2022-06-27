@@ -1,5 +1,7 @@
 package com.zyh.todo.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import com.zyh.todo.util.JWTUtil;
  * @since 2022/6/27 15:14
  */
 @Service
+@Slf4j
 public class LoginServiceImpl implements LoginService {
     @Autowired
     AccountDAO accountDAO;
@@ -23,6 +26,8 @@ public class LoginServiceImpl implements LoginService {
         AccountPO account = accountDAO.getAccount(username);
         if (StringUtils.equals(account.getPassword(), password)) {
             return JWTUtil.createToken(String.valueOf(account.getId()));
+        } else {
+            log.info("[op:login]: login fail username={}, password={}", username, password);
         }
         return null;
     }

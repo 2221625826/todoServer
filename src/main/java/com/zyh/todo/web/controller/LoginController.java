@@ -16,6 +16,7 @@ import com.zyh.todo.util.http.AjaxResult;
 import com.zyh.todo.web.UserContext;
 
 /**
+ * 登录相关
  * @author zhangyiheng03
  * @since 2022/6/27 15:17
  */
@@ -32,6 +33,7 @@ public class LoginController extends BaseController{
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             return initFailureResult("账号或密码为空");
         }
+        log.error("[op:login]: username={}", username);
         return initSuccessResult(loginService.login(username, password));
     }
 

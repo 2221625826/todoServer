@@ -14,6 +14,7 @@ import com.zyh.todo.util.JWTUtil;
 import com.zyh.todo.web.UserContext;
 
 /**
+ * 身份鉴权校验
  * @author zhangyiheng03
  * @since 2022/6/14 16:53
  */
@@ -30,7 +31,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 Integer userId = JWTUtil.getUserIdFromToken(token);
                 UserContext.setUserId(userId);
             } else {
-                log.error("[token error]: token={}", token);
+                log.error("[op:preHandle]: token={}", token);
                 return false;
             }
         } catch (Exception e) {
