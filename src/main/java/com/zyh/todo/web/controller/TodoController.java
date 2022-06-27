@@ -45,9 +45,13 @@ public class TodoController extends BaseController {
         if (Objects.isNull(taskVO)) {
             return initFailureResult("参数错误");
         }
-        log.info("[option:addTask]: taskVO={}", taskVO);
+        Integer userId = UserContext.getUserId();
+        if (Objects.isNull(userId) || userId == 0) {
+            return initFailureResult("请登录");
+        }
+        log.info("[option:addTask]: userId={}, taskVO={}", userId, taskVO);
         try {
-            return initSuccessResult(taskService.addTask(taskVO));
+            return initSuccessResult(taskService.addTask(userId, taskVO));
         } catch (ServiceException e) {
             return initFailureResult(e.getMessage());
         }
@@ -65,6 +69,7 @@ public class TodoController extends BaseController {
         if (Objects.isNull(userId) || userId == 0) {
             return initFailureResult("请登录");
         }
+        log.info("[option:getTodo]: userId={}", userId);
         return initSuccessResult(taskService.getTodo(userId));
     }
 
@@ -79,6 +84,7 @@ public class TodoController extends BaseController {
         if (Objects.isNull(userId) || userId == 0) {
             return initFailureResult("请登录");
         }
+        log.info("[option:getDone]: userId={}", userId);
         return initSuccessResult(taskService.getDone(userId));
     }
 
@@ -153,6 +159,7 @@ public class TodoController extends BaseController {
         if (Objects.isNull(userId) || userId == 0) {
             return initFailureResult("请登录");
         }
+        log.info("[option:getTags]: userId={}", userId);
         return initSuccessResult(tagService.getAll(userId));
     }
 
@@ -167,6 +174,7 @@ public class TodoController extends BaseController {
         if (Objects.isNull(userId) || userId == 0) {
             return initFailureResult("请登录");
         }
+        log.info("[option:addTag]: userId={} tagName={}", userId, name);
         return initSuccessResult(tagService.addTag(userId, name));
     }
 

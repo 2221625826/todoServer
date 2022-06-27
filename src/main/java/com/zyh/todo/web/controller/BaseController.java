@@ -51,7 +51,7 @@ public class BaseController {
             return new AjaxResult(HttpCode.PARAM_ERROR, ex.getMessage());
         } else {
             log.error("[{}] exception. message={}", path, ex.getMessage());
-            return new AjaxResult(HttpCode.DEFAULT_ERROR);
+            return new AjaxResult(HttpCode.DEFAULT_ERROR, ex.getMessage());
         }
     }
 }

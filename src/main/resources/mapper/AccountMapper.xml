@@ -40,7 +40,7 @@
     <where>id = #{id,jdbcType=INTEGER}</where>
   </update>
   <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select *
+    select * from <include refid="table"/>
     <where>
       username = #{username,jdbcType=VARCHAR}
     </where>

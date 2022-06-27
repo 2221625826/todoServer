@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.zyh.todo.model.po.TagPO;
+import com.zyh.todo.model.vo.TagVO;
 
 /**
  * @author zhangyiheng03
@@ -16,7 +17,7 @@ public interface TagService {
      * 获取所有标签
      * @return 标签列表
      */
-    List<TagPO> getAll(int userId);
+    List<TagVO> getAll(int userId);
 
     /**
      * 插入标签

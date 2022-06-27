@@ -33,8 +33,9 @@ public class TaskServiceImpl implements TaskService {
     TagDAO tagDAO;
 
     @Override
-    public boolean addTask(TaskVO taskVO) {
+    public boolean addTask(int userId, TaskVO taskVO) {
         TaskPO taskPO = TaskPO.of(taskVO);
+        taskPO.setUserId(userId);
         taskPO.setStatus(TaskStatus.TODO.getCode());
         boolean res = taskDAO.insert(taskPO);
         for (TagPO tagPO : taskVO.getTags()) {

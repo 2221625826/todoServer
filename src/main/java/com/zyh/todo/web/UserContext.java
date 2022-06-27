@@ -5,7 +5,7 @@ package com.zyh.todo.web;
  * @since 2022/6/24 15:38
  */
 public class UserContext {
-    private static ThreadLocal<Integer> userId;
+    private static final ThreadLocal<Integer> userId = new ThreadLocal<>();
 
     public static void remove() {
         userId.remove();

@@ -31,6 +31,11 @@ public class AjaxResult {
         this.result = result;
     }
 
+    public AjaxResult(HttpCode code, String msg) {
+        this.code = code.getCode();
+        this.msg = msg;
+    }
+
     public AjaxResult(HttpCode code, Object result) {
         this.code = code.getCode();
         this.msg = code.getMsg();

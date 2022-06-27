@@ -16,7 +16,7 @@ public interface TaskService {
      * @param taskVO 参数
      * @return 是否成功
      */
-    boolean addTask(TaskVO taskVO);
+    boolean addTask(int userId, TaskVO taskVO);
 
     /**
      * 获取所有未开始和进行中任务

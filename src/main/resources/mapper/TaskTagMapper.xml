@@ -3,19 +3,19 @@
 <mapper namespace="com.zyh.todo.dal.mapper.TaskTagMapper">
   <resultMap id="BaseResultMap" type="com.zyh.todo.model.po.TaskTagPO">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="tagId" jdbcType="INTEGER" property="tagId" />
-    <result column="taskId" jdbcType="INTEGER" property="taskId" />
+    <result column="tag_id" jdbcType="INTEGER" property="tagId" />
+    <result column="task_id" jdbcType="INTEGER" property="taskId" />
   </resultMap>
   <sql id="table">task_tag</sql>
   <delete id="deleteByTaskId">
     delete from
     <include refid="table"/>
-    <where>taskId = #{taskId,jdbcType=INTEGER}</where>
+    <where>task_id = #{taskId,jdbcType=INTEGER}</where>
   </delete>
   <insert id="insert" parameterType="com.zyh.todo.model.po.TaskTagPO">
     insert into
     <include refid="table"/>
-    (tagId, taskId )
+    (tag_id, task_id )
     values (#{tagId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER} )
   </insert>
   <select id="selectByTaskId" resultMap="BaseResultMap">
@@ -23,6 +23,6 @@
     *
     from
     <include refid="table"/>
-    where taskId = #{taskId,jdbcType=INTEGER}
+    where task_id = #{taskId,jdbcType=INTEGER}
   </select>
 </mapper>
