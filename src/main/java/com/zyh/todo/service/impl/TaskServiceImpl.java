@@ -47,9 +47,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskVO> getTodo() {
+    public List<TaskVO> getTodo(int userId) {
         List<TaskVO> todoList = Lists.newArrayList();
-        for (TaskPO taskPO : taskDAO.getTodo()) {
+        for (TaskPO taskPO : taskDAO.getTodo(userId)) {
             TaskVO taskVO = TaskVO.of(taskPO);
             List<TagPO> tagPOList = Lists.newArrayList();
             for (TaskTagPO taskTagPO : taskTagDAO.selectByTaskId(taskPO.getId())) {
@@ -62,9 +62,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskVO> getDone() {
+    public List<TaskVO> getDone(int userId) {
         List<TaskVO> doneList = Lists.newArrayList();
-        for (TaskPO taskPO : taskDAO.getDone()) {
+        for (TaskPO taskPO : taskDAO.getDone(userId)) {
             TaskVO taskVO = TaskVO.of(taskPO);
             List<TagPO> tagPOList = Lists.newArrayList();
             for (TaskTagPO taskTagPO : taskTagDAO.selectByTaskId(taskPO.getId())) {

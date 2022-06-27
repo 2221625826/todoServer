@@ -3,6 +3,7 @@ package com.zyh.todo.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -13,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author zhangyiheng03
  * @since 2022/6/24 14:52
  */
-
+@Slf4j
 public class JWTUtil {
 
     private static final String KEY =
@@ -48,8 +49,8 @@ public class JWTUtil {
                     .signWith(SignatureAlgorithm.HS512, KEY.getBytes(StandardCharsets.UTF_8))
                     .compact();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return "null";
+            log.error(e.getMessage());
+            return null;
         }
 
     }
@@ -59,15 +60,16 @@ public class JWTUtil {
      * @param token token字符串
      * @return 用户id
      */
-    public static String getUserIdFromToken(String token)
+    public static Integer getUserIdFromToken(String token)
     {
         Claims body;
         try {
             body = Jwts.parser().setSigningKey(KEY.getBytes(StandardCharsets.UTF_8)).parseClaimsJws(token).getBody();
-        } catch (io.jsonwebtoken.ExpiredJwtException e) {
-            return e.getMessage();
+            return Integer.valueOf(body.getSubject());
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return null;
         }
-        return body.getSubject();
     }
 
     /**

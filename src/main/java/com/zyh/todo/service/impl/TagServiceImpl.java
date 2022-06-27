@@ -18,13 +18,14 @@ public class TagServiceImpl implements TagService {
     @Autowired
     TagDAO tagDAO;
     @Override
-    public List<TagPO> getAll() {
-        return tagDAO.getAll();
+    public List<TagPO> getAll(int userId) {
+        return tagDAO.getAll(userId);
     }
 
     @Override
-    public boolean addTag(String name) {
+    public boolean addTag(int userId, String name) {
         TagPO tagPO = new TagPO();
+        tagPO.setUserId(userId);
         tagPO.setName(name);
         return tagDAO.insert(tagPO);
     }

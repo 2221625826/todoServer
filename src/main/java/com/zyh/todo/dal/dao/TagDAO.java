@@ -17,8 +17,8 @@ public class TagDAO {
     @Autowired
     TagMapper tagMapper;
 
-    public List<TagPO> getAll() {
-        return tagMapper.selectAll();
+    public List<TagPO> getAll(Integer userId) {
+        return tagMapper.selectAll(userId);
     }
 
     public boolean delete(int id) {

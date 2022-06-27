@@ -10,9 +10,14 @@ import com.zyh.todo.util.DateTimeUtil;
 @Data
 public class TaskPO {
     /**
-     * id
+     * TaskId
      */
     private Integer id;
+
+    /**
+     * userId
+     */
+    private Integer userId;
 
     /**
      * 优先级

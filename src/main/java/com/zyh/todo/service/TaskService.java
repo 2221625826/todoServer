@@ -22,13 +22,13 @@ public interface TaskService {
      * 获取所有未开始和进行中任务
      * @return 所有待办事件
      */
-    List<TaskVO> getTodo();
+    List<TaskVO> getTodo(int userId);
 
     /**
      * 获取所有已完成任务
      * @return 所有已完成任务
      */
-    List<TaskVO> getDone();
+    List<TaskVO> getDone(int userId);
 
     /**
      * 修改任务

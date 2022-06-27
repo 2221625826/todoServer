@@ -3,21 +3,31 @@ package com.zyh.todo.model.po;
 import lombok.Data;
 
 @Data
-public class TaskTagPO {
+public class AccountPO {
     /**
-     * 主键id
+     * userId
      */
     private Integer id;
 
     /**
-     * tag表id
+     * 用户名
      */
-    private Integer tagId;
+    private String username;
 
     /**
-     * 任务表id
+     * 密码
      */
-    private Integer taskId;
+    private String password;
+
+    /**
+     * 邮箱
+     */
+    private String mail;
+
+    /**
+     * 电话号码
+     */
+    private String phone;
 
     /**
      * 创建时间
@@ -28,5 +38,4 @@ public class TaskTagPO {
      * 更新时间
      */
     private Long updateTime;
-
 }

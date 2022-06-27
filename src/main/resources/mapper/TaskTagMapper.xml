@@ -15,11 +15,12 @@
   <insert id="insert" parameterType="com.zyh.todo.model.po.TaskTagPO">
     insert into
     <include refid="table"/>
-    (id, tagId, taskId )
-    values (#{id,jdbcType=INTEGER}, #{tagId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER} )
+    (tagId, taskId )
+    values (#{tagId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER} )
   </insert>
   <select id="selectByTaskId" resultMap="BaseResultMap">
-    select id, tagId, taskId
+    select
+    *
     from
     <include refid="table"/>
     where taskId = #{taskId,jdbcType=INTEGER}

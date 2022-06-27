@@ -3,6 +3,7 @@
 <mapper namespace="com.zyh.todo.dal.mapper.TaskMapper">
   <resultMap id="BaseResultMap" type="com.zyh.todo.model.po.TaskPO">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="priority" jdbcType="TINYINT" property="priority" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="desc" jdbcType="VARCHAR" property="desc" />
@@ -13,12 +14,13 @@
     <result column="complete_time" jdbcType="BIGINT" property="completeTime" />
   </resultMap>
   <sql id="table">task</sql>
-  <sql id="cols">id, priority, title, `desc`, topicId, status, create_time, update_time, complete_time</sql>
+  <sql id="cols">user_id, priority, title, `desc`, topicId, status, create_time, update_time, complete_time</sql>
   <insert id="insert" parameterType="com.zyh.todo.model.po.TaskPO" useGeneratedKeys="true" keyProperty="id">
     insert into
     <include refid="table"/>
     (<include refid="cols"/>)
     values (
+    #{userId,jdbcType=INTEGER},
     #{priority,jdbcType=TINYINT},
     #{title,jdbcType=VARCHAR},
     #{desc,jdbcType=VARCHAR},
@@ -38,28 +40,33 @@
   <update id="updateByPrimaryKey">
     update
     <include refid="table"/>
-    <set>status = #{status,jdbcType=TINYINT}</set>
+    <set>
+      <if test="priority != NULL">priority = #{priority,jdbcType=VARCHAR},</if>
+      <if test="title != NULL">title = #{title,jdbcType=VARCHAR},</if>
+      <if test="desc != NULL">`desc` = #{desc,jdbcType=VARCHAR},</if>
+      <if test="topicId != NULL">title = #{topicId,jdbcType=VARCHAR},</if>
+    </set>
     <where>id = #{id,jdbcType=INTEGER}</where>
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
-    <include refid="cols"/>
+    *
     from
     <include refid="table"/>
     <where>id = #{id,jdbcType=INTEGER}</where>
   </select>
   <select id="selectTodo" resultMap="BaseResultMap">
     select
-    <include refid="cols"/>
+    *
     from
     <include refid="table"/>
-    <where>status = 0 OR status = 1</where>
+    <where>user_id =  #{userId,jdbcType=INTEGER} AND (status = 0 OR status = 1)</where>
   </select>
   <select id="selectDone" resultType="com.zyh.todo.model.po.TaskPO">
     select
-    <include refid="cols"/>
+    *
     from
     <include refid="table"/>
-    <where>status = 2</where>
+    <where>user_id =  #{userId,jdbcType=INTEGER} AND status = 2</where>
   </select>
 </mapper>

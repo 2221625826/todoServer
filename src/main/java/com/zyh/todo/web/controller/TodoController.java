@@ -18,6 +18,7 @@ import com.zyh.todo.service.TagService;
 import com.zyh.todo.service.TaskService;
 import com.zyh.todo.util.exception.ServiceException;
 import com.zyh.todo.util.http.AjaxResult;
+import com.zyh.todo.web.UserContext;
 
 /**
  * @author zhangyiheng03
@@ -60,7 +61,11 @@ public class TodoController extends BaseController {
     @ResponseBody
     @GetMapping("/getTodo")
     public AjaxResult getTodo() {
-        return initSuccessResult(taskService.getTodo());
+        Integer userId = UserContext.getUserId();
+        if (Objects.isNull(userId) || userId == 0) {
+            return initFailureResult("请登录");
+        }
+        return initSuccessResult(taskService.getTodo(userId));
     }
 
     /**
@@ -70,7 +75,11 @@ public class TodoController extends BaseController {
     @ResponseBody
     @GetMapping("/getDone")
     public AjaxResult getDone() {
-        return initSuccessResult(taskService.getDone());
+        Integer userId = UserContext.getUserId();
+        if (Objects.isNull(userId) || userId == 0) {
+            return initFailureResult("请登录");
+        }
+        return initSuccessResult(taskService.getDone(userId));
     }
 
     /**
@@ -140,7 +149,11 @@ public class TodoController extends BaseController {
     @ResponseBody
     @GetMapping("/getTags")
     public AjaxResult getTags() {
-        return initSuccessResult(tagService.getAll());
+        Integer userId = UserContext.getUserId();
+        if (Objects.isNull(userId) || userId == 0) {
+            return initFailureResult("请登录");
+        }
+        return initSuccessResult(tagService.getAll(userId));
     }
 
     /**
@@ -150,7 +163,11 @@ public class TodoController extends BaseController {
      */
     @GetMapping("/addTag")
     public AjaxResult addTag(@RequestParam String name) {
-        return initSuccessResult(tagService.addTag(name));
+        Integer userId = UserContext.getUserId();
+        if (Objects.isNull(userId) || userId == 0) {
+            return initFailureResult("请登录");
+        }
+        return initSuccessResult(tagService.addTag(userId, name));
     }
 
     /**

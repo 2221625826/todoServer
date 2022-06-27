@@ -27,8 +27,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 return false;
             }
             if (JWTUtil.checkToken(token)) {
-                String userId = JWTUtil.getUserIdFromToken(token);
-                UserContext.setUser(userId);
+                Integer userId = JWTUtil.getUserIdFromToken(token);
+                UserContext.setUserId(userId);
             } else {
                 return false;
             }

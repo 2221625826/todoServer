@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyh.todo.dal.mapper.AccountMapper">
+  <resultMap id="BaseResultMap" type="com.zyh.todo.model.po.AccountPO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="mail" jdbcType="VARCHAR" property="mail" />
+    <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+  </resultMap>
+  <sql id="table">account</sql>
+  <sql id="cols">username, password, mail, phone, create_time, update_time</sql>
+  <insert id="insert" parameterType="com.zyh.todo.model.po.AccountPO">
+    insert into <include refid="table"/>
+    (<include refid="cols"/>)
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{mail,jdbcType=VARCHAR}, #{phone,jdbcType=CHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.zyh.todo.model.po.AccountPO">
+    update
+    <include refid="table"/>
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        mail = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      update_time = #{updateTime,jdbcType=BIGINT}
+    </set>
+    <where>id = #{id,jdbcType=INTEGER}</where>
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select *
+    <where>
+      id = #{id,jdbcType=INTEGER}
+    </where>
+  </select>
+</mapper>

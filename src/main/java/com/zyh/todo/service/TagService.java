@@ -16,12 +16,12 @@ public interface TagService {
      * 获取所有标签
      * @return 标签列表
      */
-    List<TagPO> getAll();
+    List<TagPO> getAll(int userId);
 
     /**
      * 插入标签
      * @param name 标签名
      * @return 是否成功
      */
-    boolean addTag(String name);
+    boolean addTag(int userId, String name);
 }

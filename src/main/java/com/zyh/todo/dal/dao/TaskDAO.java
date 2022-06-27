@@ -24,12 +24,12 @@ public class TaskDAO {
         return taskMapper.insert(taskPO) == 1;
     }
 
-    public List<TaskPO> getTodo() {
-        return taskMapper.selectTodo();
+    public List<TaskPO> getTodo(int userId) {
+        return taskMapper.selectTodo(userId);
     }
 
-    public List<TaskPO> getDone() {
-        return taskMapper.selectDone();
+    public List<TaskPO> getDone(int userId) {
+        return taskMapper.selectDone(userId);
     }
 
     public boolean update(TaskPO taskPO) {

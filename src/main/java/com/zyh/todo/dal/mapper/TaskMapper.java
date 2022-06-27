@@ -10,9 +10,9 @@ public interface TaskMapper {
 
     TaskPO selectByPrimaryKey(Integer id);
 
-    List<TaskPO> selectTodo();
+    List<TaskPO> selectTodo(Integer userId);
 
-    List<TaskPO> selectDone();
+    List<TaskPO> selectDone(Integer userId);
 
     int updateStatusById(int id, int status);
 

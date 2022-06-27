@@ -1,21 +1,21 @@
 package com.zyh.todo.web;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
 /**
  * @author zhangyiheng03
  * @since 2022/6/24 15:38
  */
 public class UserContext {
-    private static ThreadLocal<String> user;
+    private static ThreadLocal<Integer> userId;
 
     public static void remove() {
-        user.remove();
+        userId.remove();
     }
 
-    public static void setUser(String user) {
-        UserContext.user.set(user);
+    public static void setUserId(Integer userId) {
+        UserContext.userId.set(userId);
+    }
+
+    public static Integer getUserId() {
+        return userId.get();
     }
 }

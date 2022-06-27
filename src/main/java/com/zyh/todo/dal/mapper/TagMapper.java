@@ -8,7 +8,7 @@ public interface TagMapper {
 
     int insert(TagPO record);
 
-    List<TagPO> selectAll();
+    List<TagPO> selectAll(Integer userId);
 
     int updateByPrimaryKey(TagPO record);
 
