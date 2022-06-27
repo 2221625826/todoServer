@@ -39,10 +39,10 @@
     </set>
     <where>id = #{id,jdbcType=INTEGER}</where>
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
     select *
     <where>
-      id = #{id,jdbcType=INTEGER}
+      username = #{username,jdbcType=VARCHAR}
     </where>
   </select>
 </mapper>

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.zyh.todo.dal.mapper.AccountMapper;
+import com.zyh.todo.model.po.AccountPO;
 
 /**
  * @author zhangyiheng03
@@ -13,4 +14,8 @@ import com.zyh.todo.dal.mapper.AccountMapper;
 public class AccountDAO {
     @Autowired
     AccountMapper accountMapper;
+
+    public AccountPO getAccount(String username) {
+        return accountMapper.selectByUsername(username);
+    }
 }
