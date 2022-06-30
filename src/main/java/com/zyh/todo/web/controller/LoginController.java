@@ -34,7 +34,11 @@ public class LoginController extends BaseController{
             return initFailureResult("账号或密码为空");
         }
         log.error("[op:login]: username={}", username);
-        return initSuccessResult(loginService.login(username, password));
+        String token = loginService.login(username, password);
+        if (StringUtils.isBlank(token)) {
+            return initFailureResult("账号或密码错误");
+        }
+        return initSuccessResult(token);
     }
 
 }
