@@ -35,4 +35,9 @@ public class TagServiceImpl implements TagService {
         tagPO.setName(name);
         return tagDAO.insert(tagPO);
     }
+
+    @Override
+    public boolean editTag(TagVO tagVO) {
+        return tagDAO.update(TagPO.of(tagVO));
+    }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.zyh.todo.model.vo.TagVO;
 import com.zyh.todo.model.vo.TaskVO;
 import com.zyh.todo.service.TagService;
 import com.zyh.todo.service.TaskService;
@@ -176,6 +177,15 @@ public class TodoController extends BaseController {
         }
         log.info("[op:addTag]: userId={} tagName={}", userId, name);
         return initSuccessResult(tagService.addTag(userId, name));
+    }
+
+    @PostMapping("/editTag")
+    public AjaxResult editTag(@RequestBody TagVO tagVO) {
+        if (Objects.isNull(tagVO) || Objects.isNull(tagVO.getId())) {
+            return initFailureResult("参数错误");
+        }
+        log.info("[op:editTag]: tag={}", tagVO);
+        return initSuccessResult(tagService.editTag(tagVO));
     }
 
     /**

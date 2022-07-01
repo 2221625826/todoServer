@@ -26,4 +26,11 @@ public interface TagService {
      * @return 是否成功
      */
     boolean addTag(int userId, String name);
+
+    /**
+     * 编辑tag
+     * @param tagVO 需要修改的tag
+     * @return 是否成功
+     */
+    boolean editTag(TagVO tagVO);
 }
