@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
  * @since 2022/6/24 14:52
  */
 @Slf4j
-public class JWTUtil {
+public class JWTUtils {
 
     private static final String KEY =
             "ruE+gogsm4V9Tpo+C8upyVfoHpVvTBdZzBQgTEg0uvWuWk16mxCMGG7T4hjOgVj1" +
@@ -33,7 +33,7 @@ public class JWTUtil {
             "8vr2vYeolo7zYAz+syH5RC0KPUPdSAaUlCrvqYzCUcGSRAC7XgVZb6zCD8L9oVKy" +
             "TiRX7rz61pYpLpecO+HnJE9Dw+bGz5qPsorMMw7+ArNeqxhm+H69l025v3xsLUJH";
 
-    private static final long USEFUL_TIME = DateTimeUtil.TIME_OF_DAY;
+    private static final long USEFUL_TIME = DateTimeUtils.TIME_OF_DAY;
 
     /**
      * 创建token

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.zyh.todo.util.CookieUtil;
-import com.zyh.todo.util.JWTUtil;
+import com.zyh.todo.util.CookieUtils;
+import com.zyh.todo.util.JWTUtils;
 import com.zyh.todo.web.UserContext;
 
 /**
@@ -23,12 +23,12 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         try {
-            String token = CookieUtil.getCookie(CookieUtil.LOGIN_TOKEN, request);
+            String token = CookieUtils.getCookie(CookieUtils.LOGIN_TOKEN, request);
             if (StringUtils.isBlank(token)) {
                 return false;
             }
-            if (JWTUtil.checkToken(token)) {
-                Integer userId = JWTUtil.getUserIdFromToken(token);
+            if (JWTUtils.checkToken(token)) {
+                Integer userId = JWTUtils.getUserIdFromToken(token);
                 UserContext.setUserId(userId);
             } else {
                 log.error("[op:preHandle]: token={}", token);

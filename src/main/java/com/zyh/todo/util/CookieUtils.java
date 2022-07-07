@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2022/6/24 14:35
  */
 
-public class CookieUtil {
+public class CookieUtils {
 
     public static final int MAG_AGE = -1;
 

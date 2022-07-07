@@ -9,7 +9,7 @@ import org.springframework.beans.BeanUtils;
 
 import com.zyh.todo.model.po.TagPO;
 import com.zyh.todo.model.po.TaskPO;
-import com.zyh.todo.util.DateTimeUtil;
+import com.zyh.todo.util.DateTimeUtils;
 
 @Data
 public class TaskVO {
@@ -57,7 +57,7 @@ public class TaskVO {
         TaskVO res = new TaskVO();
         BeanUtils.copyProperties(taskPO, res);
         if (Objects.nonNull(taskPO.getCompleteTime()) && taskPO.getCompleteTime() != -1) {
-            res.setCompleteTime(DateTimeUtil.parseLongToString(taskPO.getCompleteTime(), DateTimeUtil.DATE_TIME_FORMAT));
+            res.setCompleteTime(DateTimeUtils.parseLongToString(taskPO.getCompleteTime(), DateTimeUtils.DATE_TIME_FORMAT));
         } else {
             res.setCompleteTime("");
         }

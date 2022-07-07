@@ -15,7 +15,7 @@ import java.util.Objects;
  * @since 2022/5/19 10:24
  */
 @Slf4j
-public class DateTimeUtil {
+public class DateTimeUtils {
     //转换器
     public static final SimpleDateFormat YEAR_MONTH_DAY_FORMAT = new SimpleDateFormat("yyyy年MM月dd日");
     public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

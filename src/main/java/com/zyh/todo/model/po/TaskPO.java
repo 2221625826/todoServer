@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 
 import com.zyh.todo.model.vo.TaskVO;
-import com.zyh.todo.util.DateTimeUtil;
+import com.zyh.todo.util.DateTimeUtils;
 @Data
 public class TaskPO {
     /**
@@ -63,7 +63,7 @@ public class TaskPO {
         TaskPO res = new TaskPO();
         BeanUtils.copyProperties(taskVO, res);
         if (!StringUtils.isBlank(taskVO.getCompleteTime())) {
-            res.setCompleteTime(DateTimeUtil.parseStringToLong(taskVO.getCompleteTime(), DateTimeUtil.DATE_TIME_FORMAT));
+            res.setCompleteTime(DateTimeUtils.parseStringToLong(taskVO.getCompleteTime(), DateTimeUtils.DATE_TIME_FORMAT));
         } else {
             res.setCompleteTime(-1L);
         }
