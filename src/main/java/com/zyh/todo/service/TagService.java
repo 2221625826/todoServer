@@ -33,4 +33,6 @@ public interface TagService {
      * @return 是否成功
      */
     boolean editTag(TagVO tagVO);
+
+    boolean delTag(Integer id);
 }

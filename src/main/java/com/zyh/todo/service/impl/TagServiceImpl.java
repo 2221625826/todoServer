@@ -40,4 +40,9 @@ public class TagServiceImpl implements TagService {
     public boolean editTag(TagVO tagVO) {
         return tagDAO.update(TagPO.of(tagVO));
     }
+
+    @Override
+    public boolean delTag(Integer id) {
+        return tagDAO.delete(id);
+    }
 }

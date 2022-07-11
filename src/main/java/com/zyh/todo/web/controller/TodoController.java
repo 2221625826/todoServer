@@ -188,6 +188,15 @@ public class TodoController extends BaseController {
         return initSuccessResult(tagService.editTag(tagVO));
     }
 
+    @GetMapping("/delTag")
+    public AjaxResult delTag(@RequestParam Integer id) {
+        if (Objects.isNull(id) || id < 0) {
+            return initFailureResult("参数错误");
+        }
+        log.info("[op:editTag]: tag={}", id);
+        return initSuccessResult(tagService.delTag(id));
+    }
+
     /**
      * 获取所有topic
      * @return topic列表
