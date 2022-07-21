@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zyh.todo.util.CookieUtils;
 import com.zyh.todo.util.JWTUtils;
@@ -38,5 +39,10 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             log.error("[op:preHandle] catch-exception,", e);
         }
         return true;
+    }
+
+    @Override
+    public void postHandle(@NonNull HttpServletRequest request,@NonNull HttpServletResponse response,@NonNull Object handler, ModelAndView modelAndView) {
+        UserContext.remove();
     }
 }

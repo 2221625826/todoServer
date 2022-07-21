@@ -20,6 +20,8 @@ public class DateTimeUtils {
     public static final SimpleDateFormat YEAR_MONTH_DAY_FORMAT = new SimpleDateFormat("yyyy年MM月dd日");
     public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+    public static final SimpleDateFormat RFC_3339_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+
     //时间常量
     public static final long TIME_OF_SECOND = 1000L;
     public static final long TIME_OF_MINUTE = 60000L;
